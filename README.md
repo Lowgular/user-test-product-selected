@@ -1,27 +1,41 @@
 # Task: Product Selected
 
-> Make sure that two components can communicate between each other:
->
-> - `ProductListComponent` selects a product
-> - `ProductDetailComponent` reacts to this selection and shows the product
+Make sure that two components can communicate between each other:
 
----
+## Acceptence Criteria
 
-## Acceptance Criteria
-
-```gherkin
-
-Feature: Show selected product
-
-  Scenario: Click Show more button
-    Given there are 3 products
-    Then I should see 3 product cards
-    And I should see N/A placeholder product in the product details
-    When I click on the second card's "Show more" button
-    Then the product detail view shows product 2 data
+```mermaid
+%%{init: {"theme":"base", "themeVariables": { "background": "#222", "edgeLabelBackground":"#222"}} }%%
+flowchart LR
+  A["ProductList"]
+  B(("Product<br/>Selected"))
+  C["ProductDetail"]
+  style A color:#000,fill:#2f2,stroke:#333,stroke-width:1
+  style B color:#fff,fill:#22f,stroke:#333,stroke-width:1
+  style C color:#000,fill:#2f2,stroke:#333,stroke-width:1
+  A --> B
+  B --> C
+  linkStyle 0 stroke:#888,stroke-width:2
+  linkStyle 1 stroke:#888,stroke-width:2
 ```
 
-> This is a super quick overview of what needs to be done, however if you need more intro head into [Repo layout](#repo-layout) section below
+`ProductListComponent` publishes `ProductSelected` event and `ProductDetailComponent` subscribes to it.
+
+```gherkin
+Feature: Product Cards
+
+  Scenario: Show placeholder product
+    Given there are 3 products
+    Then I should see 3 product cards
+    And I should see placeholder product in the product details
+
+  Scenario: Show selected product
+    Given there are 3 products
+    When I click on the second card's "Show more" button
+    Then I should see the selected product in the product details
+```
+
+This is a super quick overview of what needs to be done, however if you need more intro head into [Repo layout](#repo-layout) section below
 
 ## Quick Start
 
