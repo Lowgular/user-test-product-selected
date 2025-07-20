@@ -1,15 +1,16 @@
-# Task 123: Communicate Between Components
+# Task: Product Selected
 
 > Make sure that two components can communicate between each other:
 >
-> - Component A sends a message
-> - Component B receives & displays it
+> - `ProductListComponent` selects a product
+> - `ProductDetailComponent` reacts to this selection and shows the product
 
 ---
 
 ## Acceptance Criteria
 
 ```gherkin
+
 Feature: Show selected product
 
   Scenario: Click Show more button
@@ -20,9 +21,14 @@ Feature: Show selected product
     Then the product detail view shows product 2 data
 ```
 
-> This is a super quick overview of what needs to be done, however if you need more intro head into [Folder structure](#folder-structure) section below
+> This is a super quick overview of what needs to be done, however if you need more intro head into [Repo layout](#repo-layout) section below
 
 ## Quick Start
+
+### Prerequisites
+
+- Node.js ≥14
+- (Optional) Angular CLI, if you want to run `ng serve` instead of `npm start`
 
 ### 1. Start the app
 
@@ -30,16 +36,9 @@ Feature: Show selected product
 npm start
 ```
 
+> By default it runs on `http://localhost:4200`. If you need a different host/port you need to [Setup different APP_URL](#setup-different-app_url)
+
 ### 2. Run the tests
-
-By default it runs on `http://localhost:4200`.  
- If you need a different host/port, set:
-
-```bash
-export APP_URL=http://localhost:3001
-```
-
-Once this is setup, you can run:
 
 ```bash
 npm test
@@ -52,6 +51,39 @@ npm test
 
 ```bash
 lg push
+```
+
+## Repo Layout
+
+You’ll find:
+
+- `src/app/` — your Angular starter code
+  - `src/app/products` - products module
+    - `ProductListComponent` - displays product cards
+    - `ProductDetailComponent` - shows selected or placeholder product
+    - `ProductsService` - fetches from public/products.json
+- `public` - static files like json response needed for application
+- `.e2e/` — test-runner package.json & helpers
+  - `.e2e/src/` - your E2E specs
+- `package.json` — scripts: start, test, test:ci, test:headed
+- `README.md` — this file
+
+## Advanced topics
+
+This section is designed to help you with more advanced setup and troubleshooting.
+
+### Setup different APP_URL
+
+- macOS/Linux:
+
+```bash
+export APP_URL=http://localhost:3001
+```
+
+- Windows (PowerShell)
+
+```bash
+$env:APP_URL = 'http://localhost:3001'
 ```
 
 ### Advanced Test Modes
@@ -67,13 +99,3 @@ npm run test:ci
 ```bash
 npm run test:headed
 ```
-
-### Folder structure
-
-You’ll find:
-
-- `src/app/` — your Angular starter code
-- `.e2e/` — test-runner package.json & helpers
-  - `.e2e/src/` - files with actual e2e tests
-- `package.json` — aliased scripts: start, test, test:ui, test:headed
-- `README.md` — this file
