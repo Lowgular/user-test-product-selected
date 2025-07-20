@@ -1,108 +1,79 @@
-## Installation
+# Task 123: Communicate Between Components
 
-Run `npm install` in order to install the app's dependencies
+> Make sure that two components can communicate between each other:
+>
+> - Component A sends a message
+> - Component B receives & displays it
 
-## Start the application
+---
 
-Then you can serve the app using `npm start`
-
-## Run Tests
-
-All the tests files are inside the `.e2e` folder.
-
-In order to run the tests you can simply navigate in your terminal: `cd .e2e` from the root folder and then run one of the npm commands:
-
-- `npm run test:ui` - will open up the playwright ui runner - **we recommend this option for better debugging**
-- `npm run test` - will run all e2e tests one time in headless mode
-- `npm run test:headed` - will run all e2e tests one time in headed mode
-
-## Finish your solution
-
-### Application Architecture
-
-#### App Component (`app.component.ts`)
-
-- **Purpose**: Main application container
-- **Layout**: Uses Bootstrap classes for responsive design
-  - Product list takes up the top row
-  - Product detail takes up the remaining space with flex-grow
-- **Standalone**: Yes, imports both child components directly
-
-#### Product List Component (`product-list.component.ts`)
-
-- **Purpose**: Displays a grid of product cards
-- **Features**:
-  - Uses `toSignal()` to convert HTTP observable to signal
-  - Displays product image, name, price, and "Show more" button
-  - Uses Bootstrap grid system (`col-md-4`)
-- **Data**: Fetches products from `/products.json` via `ProductsService`
-- **Current State**: "Show more" button has no functionality yet
-
-#### Product Detail Component (`product-detail.component.ts`)
-
-- **Purpose**: Shows detailed view of a selected product
-- **Features**:
-  - Displays product image, name, price, and description
-  - Color picker for background customization
-  - Fallback state when no product is selected
-- **State Management**: Uses signals for `product` and `selectedColor`
-- **Current State**: No product selection mechanism implemented
-
-#### Products Service (`products.service.ts`)
-
-- **Purpose**: Handles product data operations
-- **Features**:
-  - `getAll()`: Fetches all products from `/products.json`
-  - `getById()`: Finds specific product by ID
-- **Data Model**: `ProductModel` interface with id, name, description, price, and image
-- **HTTP**: Uses Angular's HttpClient for API calls
-
-### Goal
-
-Your goal is to finish the implementation of the feature.
-
-You have two components: `ProductListComponent` and `ProductDetail` component.
-
-Your team has decided to give the `EventBus` design pattern a go, they want to see it in action!
-
-#### Acceptance Criteria
-
-At the very minimum you need to make sure that the automatic tests are passing, the pattern requirements are extra and will be evaluated separately.
-
-##### Functionality
-
-Your solution should be using the `EventBus` which has the following flow:
-
-```mermaid
-%%{init: {"theme":"base", "themeVariables": { "background": "#222", "edgeLabelBackground":"#222"}} }%%
-flowchart LR
-  A["ProductList"]
-  B["EventBus"]
-  C["ProductDetail"]
-  style A color:#000,fill:#2f2,stroke:#333,stroke-width:1
-  style B color:#fff,fill:#22f,stroke:#333,stroke-width:1
-  style C color:#000,fill:#2f2,stroke:#333,stroke-width:1
-  A --> B
-  B --> C
-  linkStyle 0 stroke:#888,stroke-width:2
-  linkStyle 1 stroke:#888,stroke-width:2
-```
+## Acceptance Criteria
 
 ```gherkin
-Scenario: Show product detail
+Feature: Show selected product
+
+  Scenario: Click Show more button
     Given there are 3 products
     Then I should see 3 product cards
-    When I click on the second card "Show more" button
-    Then I should see the "Product 2" in the product detail's title
+    And I should see N/A placeholder product in the product details
+    When I click on the second card's "Show more" button
+    Then the product detail view shows product 2 data
 ```
 
-## Push the code
+> This is a super quick overview of what needs to be done, however if you need more intro head into [Folder structure](#folder-structure) section below
 
-After the tests are passing locally and you are happy with the quality of your solution, please push the code using `lg push` command in your root folder.
+## Quick Start
 
-This will:
+### 1. Start the app
 
-- deploy your app to our hosting server
-- create pipeline that will:
-  - use your deployed app and run e2e tests on our end and generate the report for you
-  - use your source code so you can request the review from our end
+```bash
+npm start
+```
+
+### 2. Run the tests
+
+By default it runs on `http://localhost:4200`.  
+ If you need a different host/port, set:
+
+```bash
+export APP_URL=http://localhost:3001
+```
+
+Once this is setup, you can run:
+
+```bash
+npm test
+```
+
+> By default, this opens the Playwright Test Runner UI so you can click through scenarios.
+> Need a different mode? See [Advanced Test Modes](#advanced-test-modes) below.
+
+### 3. Push your solution
+
+```bash
+lg push
+```
+
+### Advanced Test Modes
+
+- Headless (CI-style)
+
+```bash
+npm run test:ci
+```
+
+- Headed browser (for debugging)
+
+```bash
+npm run test:headed
+```
+
+### Folder structure
+
+You’ll find:
+
+- `src/app/` — your Angular starter code
+- `.e2e/` — test-runner package.json & helpers
+  - `.e2e/src/` - files with actual e2e tests
+- `package.json` — aliased scripts: start, test, test:ui, test:headed
+- `README.md` — this file

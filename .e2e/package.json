@@ -1,9 +1,7 @@
 {
   "name": "03-product-selected",
   "scripts": {
-    "test": "playwright test",
-    "test:ui": "playwright test --ui",
-    "test:headed": "playwright test --headed"
+    "test": "playwright test"
   },
   "devDependencies": {
     "@playwright/test": "^1.52.0",

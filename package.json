@@ -5,8 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "jest"
+    "test": "cd .e2e && npm run test -- --ui",
+    "test:ci": "cd .e2e && npm run test",
+    "test:headed": "cd .e2e && npm run test -- --headed"
   },
   "private": true,
   "dependencies": {

@@ -27,64 +27,72 @@ const expectProductValues = async (
   );
 };
 
-test('should select the product', async ({ page }) => {
-  const emptyProductStub = {
-    image: 'https://dummyimage.com/150x150/cccccc/888888&text=N/A',
-    name: 'No product selected',
-    description: 'Choose a product from the list to view its details',
-  };
+test.describe('Feature: Product list & details', () => {
+  test('Scenario: Select a product', async ({ page }) => {
+    const emptyProductStub = {
+      image: 'https://dummyimage.com/150x150/cccccc/888888&text=N/A',
+      name: 'No product selected',
+      description: 'Choose a product from the list to view its details',
+    };
 
-  const productsStub = [
-    {
-      id: 1,
-      name: 'Product 1',
-      description:
-        'This is a beautiful and high-quality product. It comes in several color variants. Choose your favorite color below to preview the product variant.',
-      price: 100,
-      image: 'https://dummyimage.com/150x150/cccccc/888888&text=Product+1',
-    },
-    {
-      id: 2,
-      name: 'Product 2',
-      description:
-        'This is a beautiful and high-quality product. It comes in several color variants. Choose your favorite color below to preview the product variant.',
-      price: 200,
-      image: 'https://dummyimage.com/150x150/cccccc/888888&text=Product+2',
-    },
-    {
-      id: 3,
-      name: 'Product 3',
-      description:
-        'This is a beautiful and high-quality product. It comes in several color variants. Choose your favorite color below to preview the product variant.',
-      price: 300,
-      image: 'https://dummyimage.com/150x150/cccccc/888888&text=Product+3',
-    },
-  ];
+    const productsStub = [
+      {
+        id: 1,
+        name: 'Product 1',
+        description:
+          'This is a beautiful and high-quality product. It comes in several color variants. Choose your favorite color below to preview the product variant.',
+        price: 100,
+        image: 'https://dummyimage.com/150x150/cccccc/888888&text=Product+1',
+      },
+      {
+        id: 2,
+        name: 'Product 2',
+        description:
+          'This is a beautiful and high-quality product. It comes in several color variants. Choose your favorite color below to preview the product variant.',
+        price: 200,
+        image: 'https://dummyimage.com/150x150/cccccc/888888&text=Product+2',
+      },
+      {
+        id: 3,
+        name: 'Product 3',
+        description:
+          'This is a beautiful and high-quality product. It comes in several color variants. Choose your favorite color below to preview the product variant.',
+        price: 300,
+        image: 'https://dummyimage.com/150x150/cccccc/888888&text=Product+3',
+      },
+    ];
 
-  await page.route('/products.json', async (route) => {
-    await route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify(productsStub),
+    await page.route('/products.json', async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(productsStub),
+      });
     });
+
+    await page.goto('');
+    // Given there are 3 products
+
+    const productCards = page.locator('app-product-list .card');
+    const productDetails = page.locator('app-product-detail');
+
+    console.log(await productCards.count());
+    // Then I should see 3 product cards
+    expect(productCards).toHaveCount(3);
+    // And I should see N/A placeholder product in the product details
+    await expectProductValues(
+      getProductDetails(productDetails),
+      emptyProductStub
+    );
+
+    // When I click on the second card's "Show more" button
+    await productCards
+      .nth(1)
+      .locator('button', { hasText: 'Show more' })
+      .click();
+    await expectProductValues(
+      getProductDetails(productDetails),
+      productsStub[1]
+    );
   });
-
-  await page.goto('');
-  // Given there are 3 products
-
-  const productCards = page.locator('app-product-list .card');
-  const productDetails = page.locator('app-product-detail');
-
-  console.log(await productCards.count());
-  // Then I should see 3 product cards
-  expect(productCards).toHaveCount(3);
-  // And I should see "No product selected" in the product details
-  await expectProductValues(
-    getProductDetails(productDetails),
-    emptyProductStub
-  );
-
-  // When I click on the second card's "Show more" button
-  await productCards.nth(1).locator('button', { hasText: 'Show more' }).click();
-  await expectProductValues(getProductDetails(productDetails), productsStub[1]);
 });
