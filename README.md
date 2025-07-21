@@ -91,13 +91,13 @@ This section is designed to help you with more advanced setup and troubleshootin
 - macOS/Linux:
 
 ```bash
-export APP_URL=http://localhost:3001
+export APP_URL=http://localhost:4200
 ```
 
 - Windows (PowerShell)
 
 ```bash
-$env:APP_URL = 'http://localhost:3001'
+$env:APP_URL = 'http://localhost:4200'
 ```
 
 ### Advanced Test Modes
