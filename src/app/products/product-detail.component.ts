@@ -3,11 +3,10 @@ import { Component, signal } from '@angular/core';
 import { ProductModel } from './products.service';
 
 @Component({
-  selector: 'app-product-detail',
-  standalone: true,
-  imports: [CommonModule],
-  styleUrls: ['./product-detail.component.css'],
-  template: `
+    selector: 'app-product-detail',
+    imports: [CommonModule],
+    styleUrls: ['./product-detail.component.css'],
+    template: `
     <div class="product-detail-container rounded">
       <div class="product-detail-card">
         @if (product(); as product) {
@@ -56,7 +55,7 @@ import { ProductModel } from './products.service';
         }
       </div>
     </div>
-  `,
+  `
 })
 export class ProductDetailComponent {
   product = signal<ProductModel | undefined>(undefined);

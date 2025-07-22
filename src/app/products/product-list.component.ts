@@ -4,9 +4,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ProductsService } from './products.service';
 
 @Component({
-  selector: 'app-product-list',
-  standalone: true,
-  template: `
+    selector: 'app-product-list',
+    template: `
     @for (product of products(); track product.id) {
     <div class="col-md-4">
       <div class="card">
@@ -22,8 +21,8 @@ import { ProductsService } from './products.service';
     </div>
     }
   `,
-  imports: [CommonModule],
-  styleUrls: ['./product-list.component.css'],
+    imports: [CommonModule],
+    styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent {
   private readonly productsService = inject(ProductsService);
