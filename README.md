@@ -41,7 +41,7 @@ This is a super quick overview of what needs to be done, however if you need mor
 
 ### Prerequisites
 
-- Node.js ≥14
+- Node.js ≥22 because we are running Angular 20
 - (Optional) Angular CLI, if you want to run `ng serve` instead of `npm start`
 
 ### 1. Start the app
