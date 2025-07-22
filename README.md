@@ -88,16 +88,18 @@ This section is designed to help you with more advanced setup and troubleshootin
 
 ### Setup different APP_URL
 
+Let's say that you have your app running on port **_3001_**, the before running the tests you should setup `APP_URL` env variable like this:
+
 - macOS/Linux:
 
 ```bash
-export APP_URL=http://localhost:4200
+export APP_URL=http://localhost:3001
 ```
 
 - Windows (PowerShell)
 
 ```bash
-$env:APP_URL = 'http://localhost:4200'
+$env:APP_URL = 'http://localhost:3001'
 ```
 
 ### Advanced Test Modes
