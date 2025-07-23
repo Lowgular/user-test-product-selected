@@ -64,7 +64,7 @@ npm test
 ### 3. Push your solution
 
 ```bash
-lg push
+npx @lowgular/cli@latest push
 ```
 
 ## Repo Layout
