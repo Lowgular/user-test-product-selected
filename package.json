@@ -31,7 +31,11 @@
   },
   "lowgular": {
     "name": "EDA - Pub Sub - Product Selected",
-    "id": "qbvezxkCXicign205hi1",
-    "type": "code-solution"
+    "id": "kZdzPi3jmuJ2MY1sP3G0",
+    "type": "code-solution",
+    "module": {
+      "id": "Tb0ETHhKEpbDrU3goZ7m",
+      "content_item_id": "ruOPq2FG6YFrZfGGhHhu"
+    }
   }
 }
