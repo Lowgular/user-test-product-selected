@@ -17,12 +17,12 @@ export class ProductsService {
   private readonly http = inject(HttpClient);
 
   getAll(): Observable<ProductModel[]> {
-    return this.http.get<ProductModel[]>('/products.json');
+    return this.http.get<ProductModel[]>('products.json');
   }
 
   getById(id: number): Observable<ProductModel | undefined> {
     return this.http
-      .get<ProductModel[]>('/products.json')
+      .get<ProductModel[]>('products.json')
       .pipe(map((products) => products.find((product) => product.id === id)));
   }
 }

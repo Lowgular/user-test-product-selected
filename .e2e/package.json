@@ -1,5 +1,5 @@
 {
-  "name": "03-product-selected",
+  "name": "playwright-runner",
   "scripts": {
     "test": "playwright test",
     "build": "tsc",
@@ -7,7 +7,6 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.52.0",
-    "@lowgular/playgular": "latest",
     "typescript": "^5.0.0"
   }
 }
