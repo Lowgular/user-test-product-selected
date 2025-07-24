@@ -4,20 +4,7 @@ Make sure that two components can communicate between each other:
 
 ## Acceptence Criteria
 
-```mermaid
-%%{init: {"theme":"base", "themeVariables": { "background": "#222", "edgeLabelBackground":"#222"}} }%%
-flowchart LR
-  A["ProductList"]
-  B(("Product<br/>Selected"))
-  C["ProductDetail"]
-  style A color:#000,fill:#2f2,stroke:#333,stroke-width:1
-  style B color:#fff,fill:#22f,stroke:#333,stroke-width:1
-  style C color:#000,fill:#2f2,stroke:#333,stroke-width:1
-  A --> B
-  B --> C
-  linkStyle 0 stroke:#888,stroke-width:2
-  linkStyle 1 stroke:#888,stroke-width:2
-```
+<img src="docs/diagram.png" alt="diagram">
 
 `ProductListComponent` publishes `ProductSelected` event and `ProductDetailComponent` subscribes to it.
 
@@ -58,7 +45,7 @@ npm start
 npm test
 ```
 
-> By default, this opens the Playwright Test Runner UI so you can click through scenarios.
+> By default, this runs tests in headless more in terminal.
 > Need a different mode? See [Advanced Test Modes](#advanced-test-modes) below.
 
 ### 3. Push your solution
@@ -104,14 +91,14 @@ $env:APP_URL = 'http://localhost:3001'
 
 ### Advanced Test Modes
 
-- Headless (CI-style)
-
-```bash
-npm run test:ci
-```
-
 - Headed browser (for debugging)
 
 ```bash
 npm run test:headed
+```
+
+- UI mode (simialr to headed but with more control)
+
+```bash
+npm run test:ui
 ```

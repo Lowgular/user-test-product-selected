@@ -5,8 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "cd .e2e && npm run test -- --ui",
-    "test:ci": "cd .e2e && npm run test",
+    "test": "cd .e2e && npm run test",
+    "test:ui": "cd .e2e && npm run test -- --ui",
     "test:headed": "cd .e2e && npm run test -- --headed"
   },
   "private": true,
@@ -31,7 +31,7 @@
   },
   "lowgular": {
     "name": "EDA - Pub Sub - Product Selected",
-    "id": "kZdzPi3jmuJ2MY1sP3G0",
+    "id": "3Mj9fnSQtLbnHp5syX0l",
     "type": "code-solution",
     "module": {
       "id": "Tb0ETHhKEpbDrU3goZ7m",
