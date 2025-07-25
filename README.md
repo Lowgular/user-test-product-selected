@@ -4,25 +4,44 @@ Make sure that two components can communicate between each other:
 
 ## Acceptence Criteria
 
+Data flow is as following:
+
 <img src="docs/diagram.png" alt="diagram">
 
-`ProductListComponent` publishes `ProductSelected` event and `ProductDetailComponent` subscribes to it.
+`ProductListComponent` publishes to `EventBus` and `ProductDetailComponent` subscribes to it.
+
+### DONE tasks:
 
 ```gherkin
-Feature: Product Cards
-
   Scenario: Show placeholder product
     Given there are 3 products
-    Then I should see 3 product cards
-    And I should see placeholder product in the product details
+    Then I should see 3 product cards in product list
+    And I should see "No products are selected" info text in the product details
+```
 
+---
+
+### TODO Tasks:
+
+```gherkin
   Scenario: Show selected product
     Given there are 3 products
     When I click on the second card's "Show more" button
-    Then I should see the selected product in the product details
+    Then I should see the second product data in the product details
 ```
 
-This is a super quick overview of what needs to be done, however if you need more intro head into [Repo layout](#repo-layout) section below
+## Repo Layout
+
+You’ll find:
+
+- `src/app/` — your Angular starter code
+  - `src/app/products` - products module
+    - `ProductListComponent` - displays product cards
+    - `ProductDetailComponent` - shows selected or placeholder product
+    - `ProductsService` - fetches from public/products.json
+- `public/products.json` - static json response needed for application
+- `.e2e/` — playwright test-runner with more advanced README.md
+  - `.e2e/src/` - your E2E specs
 
 ## Quick Start
 
@@ -37,7 +56,8 @@ This is a super quick overview of what needs to be done, however if you need mor
 npm start
 ```
 
-> By default it runs on `http://localhost:4200`. If you need a different host/port you need to [Setup different APP_URL](#setup-different-app_url)
+> By default it runs on `http://localhost:4200`.
+> Running on a different host/port? Checkout the README.md in .e2e folder
 
 ### 2. Run the tests
 
@@ -46,7 +66,7 @@ npm test
 ```
 
 > By default, this runs tests in headless more in terminal.
-> Need a different mode? See [Advanced Test Modes](#advanced-test-modes) below.
+> Need a different mode? Checkout the README.md in .e2e folder
 
 ### 3. Push your solution
 
@@ -54,51 +74,4 @@ npm test
 npx @lowgular/cli@latest push
 ```
 
-## Repo Layout
-
-You’ll find:
-
-- `src/app/` — your Angular starter code
-  - `src/app/products` - products module
-    - `ProductListComponent` - displays product cards
-    - `ProductDetailComponent` - shows selected or placeholder product
-    - `ProductsService` - fetches from public/products.json
-- `public` - static files like json response needed for application
-- `.e2e/` — test-runner package.json & helpers
-  - `.e2e/src/` - your E2E specs
-- `package.json` — scripts: start, test, test:ci, test:headed
-- `README.md` — this file
-
-## Advanced topics
-
-This section is designed to help you with more advanced setup and troubleshooting.
-
-### Setup different APP_URL
-
-Let's say that you have your app running on port **_3001_**, the before running the tests you should setup `APP_URL` env variable like this:
-
-- macOS/Linux:
-
-```bash
-export APP_URL=http://localhost:3001
-```
-
-- Windows (PowerShell)
-
-```bash
-$env:APP_URL = 'http://localhost:3001'
-```
-
-### Advanced Test Modes
-
-- Headed browser (for debugging)
-
-```bash
-npm run test:headed
-```
-
-- UI mode (simialr to headed but with more control)
-
-```bash
-npm run test:ui
-```
+> By default it will run pre-push hooks: build and test and if they pass, you will get link to your solution

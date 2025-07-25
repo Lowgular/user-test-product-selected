@@ -1,6 +1,5 @@
 import test, { expect } from '@playwright/test';
 import {
-  emptyProductStub,
   expectProductValues,
   getProductDetails,
   productsStub,
@@ -17,15 +16,14 @@ test.describe('Feature: Product Cards', () => {
     const productCards = page.locator('app-product-list .card');
     const productDetails = page.locator('app-product-detail');
 
-    // Then I should see 3 product cards
+    // Then I should see 3 product cards in product list
     expect(productCards).toHaveCount(3);
 
-    // And I should see placeholder product in the product details
-    await expectProductValues(
-      getProductDetails(productDetails),
-      emptyProductStub
-    );
+    // And I should see "No products are selected" info text in the product details
+    const infoBox = productDetails.locator('.alert-info');
+    await expect(infoBox).toHaveText('No products are selected');
   });
+
   test('Scenario: Show selected product', async ({ page }) => {
     await page.goto('');
     // Given there are 3 products
@@ -40,7 +38,7 @@ test.describe('Feature: Product Cards', () => {
       .locator('button', { hasText: 'Show more' })
       .click();
 
-    // Then I should see the selected product in the product details
+    // Then I should see the second product data in the product details
     await expectProductValues(
       getProductDetails(productDetails),
       productsStub[1]
