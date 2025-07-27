@@ -74,4 +74,4 @@ npm test
 npx @lowgular/cli@latest push
 ```
 
-> By default it will run pre-push hooks: build and test and if they pass, you will get link to your solution
+> By default it will run pre-push hook with test and if it passes, then it will push the solution and return the link to the academy

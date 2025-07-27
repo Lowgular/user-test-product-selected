@@ -19,6 +19,12 @@ export const expectProductValues = async (
   elements: ReturnType<typeof getProductDetails>,
   product: any
 ) => {
+  // Debug: Check if elements exist before testing
+  const titleExists = await elements.title.count() > 0;
+  const descriptionExists = await elements.description.count() > 0;
+  const imageExists = await elements.image.count() > 0;
+
+  
   await expect(elements.title).toContainText(product.name);
   await expect(elements.description).toContainText(product.description);
   await expect(elements.image).toHaveAttribute(

@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
-import { ProductModel } from './products.service';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { switchMap } from 'rxjs';
+import { EventBusService } from './event.bus';
+import { ProductModel, ProductsService } from './products.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -48,13 +50,23 @@ import { ProductModel } from './products.service';
     }
   `,
 })
-export class ProductDetailComponent {
-  product = signal<ProductModel | undefined>(undefined);
-
+export class ProductDetailComponent implements OnInit {
+  private readonly eventBusService = inject(EventBusService);
+  private readonly productsService = inject(ProductsService);
+  private readonly productId = this.eventBusService.listen();
+  protected product = signal<ProductModel | undefined>(undefined);
   protected readonly colors = ['#e5e7eb', '#fbbf24', '#60a5fa', '#a7f3d0'];
   protected readonly selectedColor = signal(this.colors[0]);
 
   protected selectColor(color: string) {
     this.selectedColor.set(color);
+  }
+
+  ngOnInit() {
+    this.productId
+      .pipe(switchMap((id) => this.productsService.getById(id)))
+      .subscribe((product) => {
+        this.product.set(product);
+      });
   }
 }

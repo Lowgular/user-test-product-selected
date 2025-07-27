@@ -6,7 +6,6 @@ import {
   stubProducts,
 } from './utils';
 
-test.describe('Feature: Product Cards', () => {
   test('Scenario: Show placeholder product', async ({ page }) => {
     await page.goto('');
 
@@ -32,11 +31,19 @@ test.describe('Feature: Product Cards', () => {
     const productCards = page.locator('app-product-list .card');
     const productDetails = page.locator('app-product-detail');
 
+    // Debug: Check if elements exist
+    const cardCount = await productCards.count();
+    console.log('Found ' + cardCount + ' product cards');
+    
+    const detailExists = await productDetails.count() > 0;
+    console.log('Product detail component exists: ' + detailExists);
+
+
     // When I click on the second card's "Show more" button
-    await productCards
-      .nth(1)
-      .locator('button', { hasText: 'Show more' })
-      .click();
+    const showMoreButton = productCards.nth(1).locator('button', { hasText: 'Show more' });
+    const buttonExists = await showMoreButton.count() > 0;
+    
+    await showMoreButton.click();
 
     // Then I should see the second product data in the product details
     await expectProductValues(
@@ -44,4 +51,3 @@ test.describe('Feature: Product Cards', () => {
       productsStub[1]
     );
   });
-});
